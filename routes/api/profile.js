@@ -120,4 +120,90 @@ router.get('/user/:user_id', async(req,res) => {
     }
 })
 
+//@route DELETE api/profile
+//@desc  Delete profile,user and posts
+//@access private
+
+router.delete('/',auth, async(req,res) => {
+    try{
+        //@todo - remove user,posts
+        await Profile.findOneAndRemove({user: req.user.id});
+        await User.findOneAndRemove({_id: req.user.id});
+
+        res.json({msg: "User and his profile have been deleted"});
+    }catch(error){
+        console.log(error);
+        return res.status(400).json({msg: "Server Error"})
+    }
+});
+
+//@route PUT api/profile/experience
+//@desc  Add profile experience
+//@access private
+
+router.put('/experience',[ auth, [
+    check('title', 'Title is required').not().isEmpty(),
+    check('company', 'Company is required').not().isEmpty(),
+    check('from', 'From date is required').not().isEmpty(),
+
+] ],async(req,res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+    }
+    const {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
+    } = req.body;
+
+    const newExp = {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
+    };
+
+    try{
+        const profile = await Profile.findOne({user: req.user.id});
+
+        profile.experience.unshift(newExp);
+
+        await profile.save();
+
+        res.json({profile});
+    }catch(error){
+        console.log(error);
+        res.status(500).json({msg: "Error present"})
+    }
+
+});
+
+//@route DELETE api/profile/experience/:exp_id
+//@desc  Delete experience from profile
+//@access private
+
+router.delete('/experience/:exp_id',auth,async(req,res) => {
+    try{
+        const profile = await Profile.findOne({user: req.user.id});
+
+        const removeIndex = profile.experience.map(item => item._id).indexOf(req.params.exp_id);
+        profile.experience.splice(removeIndex,1);
+
+        await profile.save();
+
+        res.json(profile);
+    }catch(error){
+        console.log(error);
+        res.status(500).json({msg: "ERROR"})
+    }
+})
+
 module.exports = router;
