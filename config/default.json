@@ -1,4 +1,6 @@
 {
     "MongoURI": "mongodb+srv://dev-connect:dev-connect000@cluster0-cwrqo.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "gndahisecrethaiye"
+    "jwtSecret": "gndahisecrethaiye",
+    "githubClientId": "80ccc928d9041cea27be",
+    "githubClientSecret": "f6ab33ad83d899b3313c561a89d4c4a80bd05da1"
 }
