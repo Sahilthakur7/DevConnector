@@ -8,17 +8,9 @@ const User = require('../../models/User');
 
 const router = express.Router();
 
-//@route GET api/posts
-//@desc test route
-//@access public
-router.get('/',(req,res) => {
-    res.send("user routes");
-});
-
 //@route POST api/posts
 //@desc create a post
 //@access private
-
 router.post('/',[auth,
     [
         check('text', 'text is required').not().isEmpty()
@@ -48,5 +40,19 @@ router.post('/',[auth,
     }
 
 });
+
+//@route GET api/posts
+//@desc get all posts
+//@access private
+router.get('/',auth,async(req,res) => {
+    try{
+        const posts = await Post.find().sort({date: -1});
+        res.json(posts);
+    }catch(err){
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+})
+
 
 module.exports = router;
