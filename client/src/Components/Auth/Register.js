@@ -1,4 +1,5 @@
 import React,{Fragment , useState} from 'react';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
 
@@ -19,6 +20,8 @@ const Register = () => {
         e.preventDefault();
         if(password !== password2){
             alert('YE nhi chlega');
+        }else{
+            console.log("SUCCESS");
         }
     }
 
@@ -75,7 +78,7 @@ const Register = () => {
                 <input type="submit" class="btn btn-primary" value="Register" />
             </form>
             <p class="my-1">
-                Already have an account? <a href="login.html">Sign In</a>
+                Already have an account? <Link to="/login">Sign In</Link>
             </p>
         </Fragment>
     );
