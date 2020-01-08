@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import propTypes from 'prop-types';
 
 const Alert = (props) => {
   const {alerts} = props;
   if( alerts !== null && alerts.length > 0){
-    let alerts;
-    alerts = alerts.map((alert) => {
+    let alertsList;
+
+    alertsList = alerts.map((alert) => {
       return(
 
       <div key={alert.id} className={`alert alert-${alert.alertType}`}>
@@ -15,12 +15,10 @@ const Alert = (props) => {
       )
     });
 
-    return alerts;
+    return alertsList;
+  }else{
+    return null;
   }
-};
-
-Alert.propTypes = {
-
 };
 
 const mapStateToProps = (state) => ({
