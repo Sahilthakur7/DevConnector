@@ -1,7 +1,9 @@
 import React,{Fragment , useState} from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link , Redirect } from 'react-router-dom';
+import { login } from '../../actions/auth';
 
-const Login = () => {
+const Login = (props) => {
 
     const [formData, setFormData] = useState(
         {
@@ -16,7 +18,11 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log("SUCCESS");
+        props.login(email,password);
+    }
+
+    if(props.isAuthenticated){
+        return <Redirect to="/dashboard" />
     }
 
     return(
@@ -46,7 +52,7 @@ const Login = () => {
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input type="submit" class="btn btn-primary" value="Register" />
+                <input type="submit" class="btn btn-primary" value="Login" />
             </form>
             <p class="my-1">
                 Don't have an account? <Link to="/register">Sign Up</Link>
@@ -55,4 +61,10 @@ const Login = () => {
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return{
+        isAuthenticated: state.auth.isAuthenticated
+    }
+}
+
+export default connect(mapStateToProps, { login })( Login );
