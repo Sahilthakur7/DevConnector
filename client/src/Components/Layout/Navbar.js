@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import { logout } from '../../actions/auth';
@@ -7,7 +7,7 @@ const Navbar = (props) => {
     const authLinks = (
       <ul>
         <li>
-          <a onClick={logout} href="#!">
+          <a onClick={props.logout}>
               <i className="fas fa-sign-out-alt" ></i>{ ' '}
             <span className="hide-sm">Logout</span>
           </a>
@@ -22,11 +22,13 @@ const Navbar = (props) => {
     ); ;
     const guestLinks = (
             <ul>
-                <li><a href="profiles.html">Developers</a></li>
+                <li><a className="pointer ">Developers</a></li>
                 <li><Link to="/register">Register</Link></li>
                 <li><Link to="/Login">Login</Link></li>
             </ul>
     );
+
+    const { loading , isAuthenticated} = props.auth;
 
     return(
         <nav className="navbar bg-dark">
