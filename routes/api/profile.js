@@ -17,6 +17,8 @@ router.get('/me',auth,async(req,res) => {
 
         if(!profile){
             res.status(400).json({errors: [{message: "There is no profile for this user"}]});
+        }else{
+            res.status(200).json(profile);
         }
 
     }catch(err){
