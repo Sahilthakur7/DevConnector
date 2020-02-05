@@ -33,6 +33,7 @@ const ProfileSchema = new mongoose.Schema({
     ],
     social: {
         facebook: {type: String},
+        twitter: {type: String},
         instagram: {type: String},
         youtube: {type: String},
         linkedin: {type: String}

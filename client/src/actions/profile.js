@@ -31,6 +31,8 @@ export const createProfile = (
       }
     };
 
+    console.log(formData);
+
     const res = await axios.post("/api/profile", formData, config);
 
     dispatch({
