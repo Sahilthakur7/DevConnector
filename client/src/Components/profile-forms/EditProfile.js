@@ -62,7 +62,7 @@ const EditProfile = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    props.createProfile(formData, props.history);
+    props.createProfile(formData, props.history, true);
   }
 
   return (
