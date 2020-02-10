@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { PROFILE_ERROR, GET_PROFILE } from "./types";
+import { PROFILE_ERROR, GET_PROFILE, UPDATE_PROFILE } from "./types";
 
 export const getCurrentProfile = () => async dispatch => {
   try {
@@ -38,7 +38,7 @@ export const createProfile = (
       payload: res.data
     });
 
-    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", 'success'));
+    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
 
     if (!edit) {
       history.push("/dashboard");
@@ -46,11 +46,11 @@ export const createProfile = (
   } catch (err) {
     console.log(err);
 
-     const errors = err.response.data.errors;
+    const errors = err.response.data.errors;
 
-     if(errors){
-       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-     }
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
 
     dispatch({
       type: PROFILE_ERROR,
@@ -91,7 +91,7 @@ export const addExperience = (formData, history) => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
-}
+};
 
 export const addEducation = (formData, history) => async dispatch => {
   try {
@@ -125,4 +125,4 @@ export const addEducation = (formData, history) => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
-}
+};
