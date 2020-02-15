@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import Moment from "react-moment";
+import { deleteEducation } from "../../actions/profile";
 
 const Education = props => {
   const education = props.education.map(edu => {
@@ -17,7 +18,12 @@ const Education = props => {
           )}
         </td>
         <td>
-          <button className="btn btn-danger">Delete</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => props.deleteEducation(edu._id)}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     );
@@ -39,4 +45,4 @@ const Education = props => {
   );
 };
 
-export default Education;
+export default connect(null, { deleteEducation })(Education);

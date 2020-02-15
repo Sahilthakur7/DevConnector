@@ -6,6 +6,7 @@ import Spinner from "../Layout/Spinner";
 import DashboardActions from "./dashboardActions";
 import Education from "./Education";
 import Experience from "./Experience";
+import { deleteAccount } from "../../actions/profile";
 
 const Dashboard = props => {
   useEffect(() => {
@@ -32,6 +33,13 @@ const Dashboard = props => {
           <DashboardActions />
           <Education education={profile.education} />
           <Experience experience={profile.experience} />
+
+          <div className="my-2">
+            <button className="btn btn-danger" onClick={props.deleteAccount}>
+              <i className="fas fa-user-minus"></i>
+              Delete My Account
+            </button>
+          </div>
         </Fragment>
       ) : (
         <Fragment>
@@ -52,4 +60,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);
