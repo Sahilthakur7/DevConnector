@@ -1,12 +1,16 @@
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { getCurrentProfile } from "../../actions/profile";
 import Spinner from "../Layout/Spinner";
-import DashboardActions from './dashboardActions';
+import DashboardActions from "./dashboardActions";
+import Education from "./Education";
+import Experience from "./Experience";
 
 const Dashboard = props => {
-  useEffect(() => {props.getCurrentProfile()}, []);
+  useEffect(() => {
+    props.getCurrentProfile();
+  }, []);
   const {
     loading,
     profile: { profile }
@@ -24,11 +28,17 @@ const Dashboard = props => {
         <i className="fas fa-user" /> Welcome {user && user.name}{" "}
       </p>
       {profile !== null ? (
-        <Fragment><DashboardActions /></Fragment>
+        <Fragment>
+          <DashboardActions />
+          <Education education={profile.education} />
+          <Experience experience={profile.experience} />
+        </Fragment>
       ) : (
         <Fragment>
           <p>You have not yet setup a profile. Please add some info</p>
-          <Link to="/create-profile" className="btn btn-primary my-1">Create Profile</Link>
+          <Link to="/create-profile" className="btn btn-primary my-1">
+            Create Profile
+          </Link>
         </Fragment>
       )}
     </Fragment>

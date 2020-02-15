@@ -7,7 +7,7 @@ const AddEducation = props => {
   const [formData, setFormData] = useState({
     school: "",
     degree: "",
-    fieldofstudy: "",
+    fieldofStudy: "",
     from: "",
     to: "",
     current: false,
@@ -19,7 +19,7 @@ const AddEducation = props => {
   const {
     school,
     degree,
-    fieldofstudy,
+    fieldofStudy,
     from,
     to,
     current,
@@ -65,9 +65,9 @@ const AddEducation = props => {
           <div class="form-group">
             <input
               type="text"
-              placeholder="Field Of Study"
-              name="fieldofstudy"
-              value={fieldofstudy}
+              placeholder="* Field Of Study"
+              name="fieldofStudy"
+              value={fieldofStudy}
               onChange={e => onChange(e)}
             />
           </div>
@@ -79,21 +79,6 @@ const AddEducation = props => {
               value={from}
               onChange={e => onChange(e)}
             />
-          </div>
-          <div class="form-group">
-            <p>
-              <input
-                type="checkbox"
-                name="current"
-                value={current}
-                checked={current}
-                onChange={e => {
-                  setFormData({ current: !current });
-                  toggleDisabled(!toDateDisabled);
-                }}
-              />{" "}
-              Current Job
-            </p>
           </div>
           <div class="form-group">
             <h4>To Date</h4>
